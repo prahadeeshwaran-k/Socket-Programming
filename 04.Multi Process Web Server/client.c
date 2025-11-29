@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     printf("Socket created with file descriptor %d\n", sockFD);
 
     // 2. Fill server address
-    memset(&server_address, 0, sizeof(server_address));
+    bzero(&server_address,sizeof(server_address));
     server_address.sin_family      = AF_INET;
     server_address.sin_port        = htons(atoi(argv[2]));
     server_address.sin_addr.s_addr = inet_addr(argv[1]);
