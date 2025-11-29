@@ -5,6 +5,7 @@
 #include <netinet/in.h> //for sockaddr_in structure.
 #include <arpa/inet.h>  //for inet_pton() -> inet presentation to net
 #include <string.h>
+
 char message[4096];
 char buffer[128];
 
