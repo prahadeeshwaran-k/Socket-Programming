@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     // 2. Fill server address
     bzero(&server_address,sizeof(server_address));
     server_address.sin_family      = AF_INET;
-    server_address.sin_port        = htons(atoi(8080));
+    server_address.sin_port        = htons(8080);
     server_address.sin_addr.s_addr = inet_addr("127.0.0.1");//loopback ip address
 
     // 3. Connect to server

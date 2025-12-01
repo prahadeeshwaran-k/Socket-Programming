@@ -9,15 +9,10 @@
 
 char buffer[256];
 
-int main(int argc, char *argv[])
+int main()
 {
     int sockFD, newFD;
     struct sockaddr_in serverADDR, clientADDR;
-
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <port>\n", argv[0]);
-        exit(EXIT_FAILURE);
-    }
 
     // 1. Create socket
     sockFD = socket(AF_INET, SOCK_STREAM, 0);
@@ -29,8 +24,8 @@ int main(int argc, char *argv[])
 
     memset(&serverADDR, 0, sizeof(serverADDR));
     serverADDR.sin_family = AF_INET;
-    serverADDR.sin_port = htons(atoi(argv[1]));
-    serverADDR.sin_addr.s_addr = INADDR_ANY;
+    serverADDR.sin_port = htons(atoi(8080));
+    serverADDR.sin_addr.s_addr = INADDR_ANY;//0.0.0.0
 
     // 3. Bind
     if (bind(sockFD, (struct sockaddr *)&serverADDR, sizeof(serverADDR)) < 0) {
@@ -69,6 +64,7 @@ int main(int argc, char *argv[])
         if (pid == 0) {
             // Child
             close(sockFD); // child doesn't need listening socket
+            pid_t id  = getpid();
 
             while (1) {
                 memset(buffer, 0, sizeof(buffer));
@@ -82,10 +78,10 @@ int main(int argc, char *argv[])
                 // Remove newline if present
                 buffer[strcspn(buffer, "\r\n")] = '\0';
 
-                printf("Client (fd=%d): %s\n", newFD, buffer);
+                printf("Client (PID=%d): %s\n", id, buffer);
 
                 if (strcmp(buffer, "bye") == 0) {
-                    printf("Client (fd=%d) said bye, closing\n", newFD);
+                    printf("Client (PID=%d) said bye, closing\n", id);
                     close(newFD);
                     exit(0);
                 }

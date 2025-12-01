@@ -1,0 +1,533 @@
+
+ RFC: Request for comment
+ 
+
+server: it is a process, executing under one device it will provide the service
+
+client: it is also a process executing under a device it will request for the service.
+
+host: host is a device/system it will work like server/client.
+
+
+
+
+
+
+All the protocols are arranged in systamatic order is   called as reference model.
+ 2 types of reference model available 
+ 
+     1.OSI reference model  [ open system interconnection ]
+      +   7 layers are present
+      +   theoritically implemented
+
+
+   2. TCP reference model
+     +  4 layers are present
+     +   practically implemented
+
+
+
+
+
+
+
+
+ 
+            Application layer -- > layer 7
+            presentation layer -- > layer 6
+            session layer  --> layer 5
+            transport layer --> layer 4
+            network layer  --> layer 3
+           data link layer  --> layer 2
+            physical layer --> layer 1
+
+  reference purpose: please do not tell secreat password anyone
+  
+ please ---> physical layer
+ do --> data link
+ not --> network
+ tell ---> transport
+ secreat --> session
+ password ---> presenattion
+ anyone --> application 
+ All these layers are bidirectional 
+
+
+
+
+
+
+
+  
+  Nature of connectivity: - is it connection oriented / connection less
+   [ it is not wire/wireless ]
+
+connection oriented:- Before transferring the data to destination,it will check the destination system avilable or not  [ TCP protocol it will support] f service available will forward or else ignore
+
+   ex:   courier service 
+
+
+connection less: Before transferring the data to destination,it will not  check the destination system avilable or not 
+ [  it will support, UDP protocol]                 if service avaiable or not dont bother.just forward the data 
+
+  ex: post-office 
+  
+
+
+    2. TCP reference model  [Transmission control protocol ]
+        +  4 layers are present
+        +  practically implemented
+
+port number:
+----------------
+ The task of the transport protocol is to provide an end-to-end communication service
+to applications residing on different hosts (or sometimes on the same host). In
+order to do this, the transport layer requires a method of differentiating the applications
+on a host. In TCP and UDP, this differentiation is provided by a 16-bit port  number.
+ 
+ 2 bytes: 0-65535 values can store in 2 bytes 
+
+  use: once the data reached to the destination system,the data belongs to which process will be decided by port number.
+
+ port numbers divided into 3 blocks
+ 
+     0-1023 (well known/ services/ previliged ) 
+                 Some well-known port numbers are permanently assigned to specific applications.
+	the Internet Assigned Numbers  Authority (IANA, http://www.iana.org/) will control port numbers.
+   
+    SSH - 22                   FTP - 20 (DATA)
+    HTTP-80                         - 21  (CMD)
+    TELENT - 23
+    TFTP -69                              HTTPS - 443 
+    NTP - 123                             IMAP  - 143
+       DHCP server -67
+       DHCP CLIENT - 68                   
+  
+              
+1024- 49151 (registered)
+             IANA also records . ports, which are allocated to application developers on a   less stringent basis (which also means that an implementation doesn’t need to guarantee
+the availability of these ports for their registered purpose). The range of IANA registered ports is 1024 to 49151
+
+
+    49152-65535 (ephemeral    / short-lived / dynamic  / private/partial )
+                   If an application doesn’t select a particular port (i.e., in sockets terminology, it
+doesn’t bind() its socket to a particular port), then TCP and UDP assign a unique ephemeral port (i.e., short-lived) number to the socket.
+
+
+
+
+
+ ip address must be unique
+
+
+Q. by using which class can i create more host?
+   Ans: using class A
+
+Q. by using which class can i create more network's?
+	Ans: using class C
+
+
+
+
+
+
+ +   In a world ,there is no network with network address as  0      why becuase if all the network bits are zero then will get host address.
+
+
+ + In a world,there is no network with the network address as 127      why becuase it is used for special purpose i.e loop back address
+
+ loop back address: means the  system sending response to same system(itself)
+
++  In a world ,there is no host with all the host bits as zero     why becuase if all the host bits are zero then will get network address.
+
++ in a world ,there is no host with  all the host bits are one   why becuase it is used for broadcasting purose
+
+
+ public ip:  public ip is used to connect with internet outside the world.which is provided by ISP provider
+      public ip must be unique in entire world.
+
+ private ip : private ip is used in LAN( local area network).
+  which is provided by network administrator in the particular  orgnization
+     In two different n/w's private ip may be same
+
+IP conflict:   in one  n/w (same n/w) more than one device using same IP
+
+private n/w :
+
+class A:  10.0.0.0  to 10.255.255.255
+claas B : 172.16.0.0   to 172.31.255.255
+class C :  192.168.0.0  to 192.168.255.255
+remainig all are public ip's
+
+
+
+static ip: static ip address won't be change [ fixed ip]
+dynamic ip: dynamic ip address will change [modified]
+
+
+
+if one device needs to connect in n/w or needs to access internet means along with
+  IP address some other n/w configuration parameters are required (ex: subnet,gateway,DNS etc..)
+
+
+ subnet: it is also called as default subnet mask /netmask value
+               It is used to get the n/w address from the IP address.
+
+     every class having fixed subnet mask values
+      class A: 255.0.0.0
+      class B: 255.255.0.0
+      class C: 255.255.255.0
+
+
+ class A:  1 n/w byte + 3 host bytes
+        111 1111.0000 0000.0000 0000.0000 0000         
+                    255.0.0.0
+
+class B:  2 n/w bytes + 2 host bytes
+              1111 1111.1111 1111.0000 0000.0000 0000
+                 255.255.0.0
+
+class C :  3 n/w bytes + 1host bye
+            1111 1111.1111 1111.1111 1111.0000 0000
+                   255.255.255.0
+
+ lets' Assume ip address:   192.168.1.10    
+  ---> 1100 0000.1010 1000.0000 0001.0000 1010
+ ubnet mask: 255.255.255.0
+        &  1111 1111.1111 1111.1111 1111.0000 0000
+
+-----------------------------------------------------------------------------------------------------
+        network address:      192.168.1.0 
+           
+           
+           
+                    ----> 1100 0000.1010 1000.0000 0001.0000 0000
+-----------------------------------------------------------------------------------------------------
+  
+
+
+ 	
+
+   Q:   is subnet mask value will get change?
+  Ans:  yes ,it will get change when the network is divided into small subnetworks
+
+
+
+
+Assignment:   if class B n/w is divided into 8 subnetworks then what is default subnet mask value?
+                         if any packet recived to ip 172.12.35.6 then which subnetwork and 
+                         which system will get the packet?
+
+ proxy server:-
+  ----------------
+  Proxy server is an intermediary server between client and the internet. 
+  A proxy server may reside on the user's local computer, or at any point
+  between the user's computer and destination servers on the Internet.
+ A proxy server that passes unmodified requests and responses is usually
+  called a gateway or sometimes a tunneling proxy.
+
+ uses:-
+      	1.Bandwidth savings and improved speeds
+	2.Improved security:
+	3.To control internet usage of employees 
+	4.Privacy
+
+
+
+DHCP-DORA Process
+-----------------------
+              client sends discover message to server
+
+              discover:  please provide any one ip address to me those are having
+                            capability to send ip. 
+                         the message was broadcast ( those are waiting at port num 67 
+                     will accept the request and remaining will ignore )
+
+
+             server sends offer message as broadcast in n/w
+               offer : in offer ,ip address,getway,subnet and other n/w configuration
+                    parametrs are added and sent in n/w. (who will accept? ans: 
+             those are waiting at port num 68 will accept and remaining will ignore
+
+                      if offer , duration also available 
+                  because dhcp server providing ip address based on contract poistion(lease)
+
+
+             3. client sends request message as broadcast in n/w 
+              request:  i am accepting ur offer letter whatever u mentioned in offer.
+                 (who will recieve?  ans: those are waiting at port num 67 wil accept
+          and remaining will ignore)
+ 
+           4.   server sends ack message as broadcast in n/w 
+                ack: ok fine ,i assigned ip address to u
+                       u can use same ip address from now onwards 
+           (who will accept? ans:  those are waiting at port num 68 will accept
+                     and remaining will ignore)
+
+
+
+
+
+  Topology is a method to connect the systems in a network.
+ 
+1.bus topology
+2.star topology
+3.ring topology
+4.mesh topology
+5.hybrid topology
+
+
+
+
+
+ bus topology
+ ---------------
+        All the devices are connected to a single  cable( techinically called as bus)
+
+         +   adv: establishment cost is very less and easy to establish.
+         + if a n/w is smaller then preferable this topology.
+
+    dis: + transmission rate is very less ,why beacuse at a time one can recieve and
+          can send.
+         + this network should be closed circuit.
+         + if more no.of systems are connected then complexity is more and finding the problem also difficult
+         
+         
+star topology
+-------------
+        all the systems are connected to centralized hub.
+         
++ speed of transmission is more
++ if system is not connected also no problem then remaining systems will
+  communicate.
++ no need to provide closed circuit
++ need to take care that centralized hub should do functionality.
+
+
+
+ring topology
+-------------
+   all the systems are connected in a n/w in the form of ring.
+  
+  + more reliable but hardware cost will increase.
+  + need two LAN ports for each system 
+  + esatblishment cost will increase
+  + if one path is failed then it can send data from another path.
+
+ 
+mesh topology
+-------------
+            all the systems are connected each other to other devices
+
+    + more reliable but cost is more.
+    + speed is more
+    + so many direct and indirect paths available to send data to destination.
+
+ hybrid topology
+------------------
+  combination of two or more topologies.
+
+
+
+
+
+
+ connecting devices:
+ ------------------------
+      to connect the systems in a network or to connect multiple systems in a network then need to take the help of connecting devices.
+
+           1.repeater
+           2.hub
+           3.switch
+           4.bridge
+           5.Router
+           6.Gateway
+
+
+ devices
+-----------  
+1.intelligent device
+ + h/w and s/w invloved
+ + it will take decision 
+ + can read the n/w data
+
+2. non intelligent device
+  + only h/w part invloved
+  + it cannot take decision  
+  + it cannot read n/w data
+
+
+Repeater
+------------
+   + it is not an intelligent device.
+   + repeaters are used to increase the strength of the signal.(boostup the signal     strength)
+   + used to extend the LAN n/w
+
+   + it will amplifies the signal and will send .
+   + it will not read the n/w data.      
+
+    + A repeater is a device that operates only in the physical layer. Signals that carry information
+within a network can travel a fixed distance before attenuation endangers the integrity of the data. A repeater receives a signal and, before it becomes too weak or corrupted, regenerates and retimes the original bit pattern. The repeater then sends the refreshed signal.
+
+
+ hub
+-------
++  it is called as multiport repeater
++ it is also non intellignet device
++ every message will be broadcast
+ + it will send data to all the systems  why because it don't know whom to send and from whom the data comes.
++ traffic conjection will be more
++ data transmission rate is less.
+ then whole network will be down.
+
+Q: will it boostup the signal if required?
+    Ans: yes,why because it is multiport repeater.
+
+
+
+
+Switch
+------------
+   + switch is an intelligent device
+   + switches are used to connect the systems with in a n/w
+   + switch reads source physical address and decides from where the data is coming 
+   + switch reads destination physical address and decides whom to send the data.
+   + switch doesn't have permission to modify the data
+
+physical address:
+    +       it is used to find the physical existence of a system in a n/w
+    +      any device in a n/w transferring the data to another device through physical media  then that device having  unique address called as physical address.
+
+   + if the data transferring in a n/w it will travel through physical address but user no need to
+        worry about the physical addess ,need to worry about the ip address only
+
+   + the sizeof MAC address is 6 bytes.
+   + each byte sepearted by : (in linux), - (in windows)
+ 
+ex:               ___ : ___: ___:___: ___: ___
+ 
+      first 3 bytes are manufacture addess
+      remaining 3 bytes are device address.
+
+  + each byte is represented in hexa decimal notation
+
+           0-ff  0-ff 0-ff 0-ff 0-ff 0-ff
+            --- : ---: ---:---:----:----
+
+
+
+ ip address vs MAC address:
+
+  +  ip address is used to get logical existance of a system in a n/w
+      MAC address is used to get physical existance of a system  in a n/w
+ 
+  + ip address divided into 2 versions : ipv4 and ipv6
+    MAC address not divided
+
+  + IPv4 size is 4 bytes
+    MAC address size is 6 bytes
+
+  + IPV4 represented in decimal string notation
+    MAC address represented in Hexa decimal notation
+
+ + IP address may change to a device
+      MAC address is fixed to a device
+
+ + IPv4 address sepearted by .
+    MAC address sepearted by  :(in linux) , -(in windows)
+
+
+
+
+ +   It is used to connect multiple n/w's
+ + Router can be used in between two different n/w
+              1.public - private
+              2.public - public
+              3.private - private      
+ + If router is connected in between public and private n/w then public ip converted to private ip
+   or private ip converted to public ip with the help of NAT [network address translation ] 
+ 
+ + router not only reading the n/w data .if requires it will modify the n/w data.
+
+ + routers are having capability to find the shortest path to the destination.
+    for that RIP or OSPF protocols are configured .
+
+ + router will do multitasking
+
+
+
+
+
+PDU: the technical name for data in each layer is called as PDU
+(protocol data unit)
+
+PDU in TCP
+--------------
+Application layer    --- > data
+Transport layer        ----> segment
+Internet  layer         ----> datagram
+network access layer  ---> frame
+
+PDU in OSI
+-------------
+Application       ----> data
+Presentation      ----> data
+session             -----> data 
+transport           ----> segment
+n/w layer        ----> packet
+data link layer   ---> frame
+physical layer  ---> bits
+
+
+
+
+
+TCP vs UDP
+---------------
+1. TCP means transmission control protocol
+      UDP means User datagram protocol
+
+2. TCP works in transport layer
+    UDP also works in transport layer
+
+3. TCP is connection oriented service.
+   connection oriented:  before sending the segment,it will check the destination system available or not. if available it will forward the  segment or else it will drop the segment.
+
+   UDP is connection less service
+         connection less: before sending the  segment,it won't bother about the destination system.  if the destination available or not avialble it will forward the segment.
+
+
+4. TCP is reliable communication.
+            [ack..is available]
+   UDP is unreliable communication
+             [ No ack]
+
+5. data guarantee available in TCP
+    Data guarantee not avaibale in UDP
+
+6. TCP maintains sequence numbers.
+     UDP doesn't maintain sequence numbers.
+
+7. TCP header size 20-60 bytes
+     UDP header size is 8 bytes
+
+8. TCP is complex protocol
+    UDP is simplest protocol
+
+9. TCP for connection establishment, it will follow 3-way handshaking method
+    TCP for connection terminating ,it will follow 4 way handshaking method
+    TCP for transmitting segment,it will follow sliding window mechanism 
+
+   UDP will not follow such mechanism's
+
+10. TCP retransmit the data ,if not reached to destination
+       UDP not follow
+
+11. TCP follows stream oriented service
+      UDP follows datagram service.
+
+
+
+
+
+
