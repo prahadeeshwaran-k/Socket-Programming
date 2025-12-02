@@ -1,35 +1,29 @@
-//UDP Send Client
+// UDP Send Client
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/socket.h> //for socket fuctions.
-#include <netinet/in.h> //for sockaddr_in structure.
-#include <arpa/inet.h>  //for inet_pton() -> inet presentation to net
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <string.h>
 
 char message[4096];
 
-int main(int argc, char *argv[])
+int main()
 {
-    if (argc < 3)
-    {
-        printf("Usage: %s <server_IPaddress> <port>\n", argv[0]);
-        exit(EXIT_FAILURE);
-    }
-
     int socketFD;
     struct sockaddr_in server_address;
 
     bzero(&server_address, sizeof(server_address));
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(8080); // host to network,short -> both little/big endian format to network supported big endian
-    server_address.sin_addr.s_addr = inet_addr("128.0.0.1");
+    server_address.sin_port = htons(8080);
+    server_address.sin_addr.s_addr = inet_addr("127.0.0.1"); 
 
     socketFD = socket(AF_INET, SOCK_DGRAM, 0);
     if (socketFD < 0)
     {
         perror("socket");
-        exit(0);
+        exit(EXIT_FAILURE);
     }
     printf("Socket SUCCESSFULLY Created, FD: %d\n", socketFD);
 
@@ -37,11 +31,13 @@ int main(int argc, char *argv[])
     {
         printf("Enter Message: ");
         scanf("%s", message);
-        //note sendto is equal to (send() + accept())
-        if (sendto(socketFD, message, strlen(message) + 1, 0, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
+
+        if (sendto(socketFD, message, strlen(message) + 1, 0,
+                   (struct sockaddr *)&server_address,
+                   sizeof(server_address)) < 0)
         {
-            perror("upd_socket");
-            exit(0);
+            perror("sendto");
+            exit(EXIT_FAILURE);
         }
     }
 }
