@@ -25,7 +25,7 @@ int main()
     }
 
     server.sin_family = AF_INET;
-    server.sin_port = htons(2000);
+    server.sin_port = htons(8080);
     server.sin_addr.s_addr = inet_addr("0.0.0.0");
 
     if (bind(sfd, (struct sockaddr *)&server, sizeof(server)) == 0)
@@ -66,7 +66,7 @@ int main()
         {
             bzero(buf, 120);
             if (read(i, buf, 120) > 0)
-                printf("%s\n", buf);
+                printf("client FD: %d ->%s\n",i, buf);
             else
             {
                 close(i);

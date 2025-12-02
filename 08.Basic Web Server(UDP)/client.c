@@ -1,3 +1,4 @@
+//UDP Send Client
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -21,8 +22,8 @@ int main(int argc, char *argv[])
 
     bzero(&server_address, sizeof(server_address));
     server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(atoi(argv[2])); // host to network,short -> both little/big endian format to network supported big endian
-    server_address.sin_addr.s_addr = inet_addr(argv[1]);
+    server_address.sin_port = htons(8080); // host to network,short -> both little/big endian format to network supported big endian
+    server_address.sin_addr.s_addr = inet_addr("128.0.0.1");
 
     socketFD = socket(AF_INET, SOCK_DGRAM, 0);
     if (socketFD < 0)
@@ -35,8 +36,9 @@ int main(int argc, char *argv[])
     while (1)
     {
         printf("Enter Message: ");
-        scanf("%s", &message);
-        if (sendto(socketFD, message, strlen(message) + 1, 0, &server_address, sizeof(server_address)) < 0)
+        scanf("%s", message);
+        //note sendto is equal to (send() + accept())
+        if (sendto(socketFD, message, strlen(message) + 1, 0, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
         {
             perror("upd_socket");
             exit(0);
